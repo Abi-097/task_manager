@@ -132,11 +132,53 @@ const SidebarStyled = styled.nav`
       left: 0;
       top: 0;
       width: 0;
-      height: 100vh;
+      height: 100%;
       background-color: ${(props) => props.theme.activeNavLinkHover};
       z-index: 1;
       transition: all 0.3s ease-in-out;
     }
+    &:: before {
+      position: absolute;
+      content: "";
+      right: 0;
+      top: 0;
+      width: 0%;
+      height: 100%;
+      background-color: ${(props) => props.theme.colorGreenDark};
+      border-bottom-left-radius: 5px;
+      border-top-left-radius: 5px;
+    }
+    a {
+      font-weight: 500;
+      z-index: 2;
+      transition: all 0.3s ease-in-out;
+    }
+
+    i {
+      display: flex;
+      align-items: center;
+      color: ${(props) => props.theme.colorIcons};
+    }
+    &:hover {
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+
+  .active {
+    background-color: ${(props) => props.theme.activeNavLink};
+
+    i {
+      color: ${(props) => props.theme.colorIcons2};
+    }
+  }
+
+  .active::before {
+    width: 0.3rem;
+  }
+  > button {
+    margin: 1.5rem;
   }
 `;
 
