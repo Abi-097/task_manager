@@ -3,6 +3,8 @@ import "./globals.css";
 import Sidebar from "./Components/Sidebar/Sidebar";
 import GlobalStyleProvider from "./providers/GlobalStyleProvider";
 import ContextProvider from "./providers/ContextProvider";
+import { ClerkProvider, auth } from "@clerk/nextjs";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,16 +13,19 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const { userId } = auth();
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <ContextProvider>
-          <GlobalStyleProvider>
-            <Sidebar />
-            <div className="w-full">{children}</div>
-          </GlobalStyleProvider>
-        </ContextProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>
+          <ContextProvider>
+            <GlobalStyleProvider>
+              {userId && <Sidebar />}
+              <div className="w-full">{children}</div>
+            </GlobalStyleProvider>
+          </ContextProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
